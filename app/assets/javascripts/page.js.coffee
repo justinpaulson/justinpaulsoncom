@@ -2,39 +2,24 @@ window.setSecondaryInfo = (element) ->
   switch element
     when 'label'
       $('.secondary-info-label').text ' Enter Text for label: '
-      $('.secondary-info-input').val ''
-      $('.secondary-info-input').show()
     when 'h1'
       $('.secondary-info-label').text ' Enter Text for Heading 1: '
-      $('.secondary-info-input').val ''
-      $('.secondary-info-input').show()
     when "h2"
       $('.secondary-info-label').text ' Enter Text for Heading 2: '
-      $('.secondary-info-input').val ''
-      $('.secondary-info-input').show()
     when "img"
       $('.secondary-info-label').text ' Enter URL for Image: '
-      $('.secondary-info-input').val ''
-      $('.secondary-info-input').show()
     when "input"
       $('.secondary-info-label').text ' Enter Placeholder Text for Input: '
-      $('.secondary-info-input').val ''
-      $('.secondary-info-input').show()
     when "button"
       $('.secondary-info-label').text ' Enter Label for Button: '
-      $('.secondary-info-input').val ''
-      $('.secondary-info-input').show()
     when "select"
       $('.secondary-info-label').text ' Enter Options separated by Commas: '
-      $('.secondary-info-input').val ''
-      $('.secondary-info-input').show()
     else
-      $('.secondary-info-label').attr text:' Something went wrong!'
-      $('.secondary-info-input').val ''
-      $('.secondary-info-input').show()
+      $('.secondary-info-label').text ' Something went wrong!'
+  $('.secondary-info-input').val ''
 
 window.makeElement = ->
-  $('main-element').append $("#{$('.new-element').value}")
+  $('.main-element').append $("<#{$('.new-element').val()} />",{text:"#{$('.secondary-info-input').val()}"})
 
 $ ->
   $('body').append $('<h1 />',{class:"header", text:"This entire page is coffeescript!"})
@@ -53,17 +38,18 @@ $ ->
   $('.secondary-info').append $('<label />', {class:'secondary-info-label',text:' Enter Text for label: '})
   $('.secondary-info').append $('<input />', {class:'secondary-info-input',type:'text'})
   $('.page-form').append $('<button />',{class:'make-element',text:'Make Element'})
-  $('.make-element').hide
   $('body').append $('<div />',{class:'main-element'})
 
-  $('.new-element').on 'change', ->
-    window.setSecondaryInfo this.value
+  $('.make-element').hide()
 
-  $('.secondary-info').on 'input', ->
-    if this.val == ''
-      $('.make-element').hide
+  $('.new-element').on 'change', ->
+    window.setSecondaryInfo $('.new-element').val()
+
+  $('.secondary-info-input').on 'input', ->
+    if $('.secondary-info-input').val() == ''
+      $('.make-element').hide()
     else
-      $('.make-element').show
+      $('.make-element').show()
 
   $('.make-element').on 'click', (e) ->
     e.preventDefault()
