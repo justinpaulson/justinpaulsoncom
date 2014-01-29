@@ -1,4 +1,4 @@
-justinpaulsoncom
+CSS Playground
 ================
 
-Personal Website
+This is a tool to create CSS tags visually
