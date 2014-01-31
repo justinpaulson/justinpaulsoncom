@@ -1,4 +1,6 @@
 window.setSecondaryInfo = (element) ->
+  $('.make-element').hide()
+  $('.main-element').empty()
   switch element
     when 'label'
       $('.secondary-info-label').text ' Enter Text for label: '
@@ -19,7 +21,18 @@ window.setSecondaryInfo = (element) ->
   $('.secondary-info-input').val ''
 
 window.makeElement = ->
-  $('.main-element').append $("<#{$('.new-element').val()} />",{text:"#{$('.secondary-info-input').val()}"})
+  $('.main-element').empty()
+  switch $('.new-element').val()
+    when 'img'
+      $('.main-element').append $("<#{$('.new-element').val()} />",{src:"#{$('.secondary-info-input').val()}"})
+    when 'select'
+      $('.main-element').append $('<select />')
+      for opt in $('.secondary-info-input').val().split(',')
+        $('.main-element').find('select').append $("<option />", {value: "#{opt}", text: "#{opt}"})
+    when 'input'
+      $('.main-element').append $("<#{$('.new-element').val()} />",{placeholder:"#{$('.secondary-info-input').val()}"})
+    else
+      $('.main-element').append $("<#{$('.new-element').val()} />",{text:"#{$('.secondary-info-input').val()}"})
 
 $ ->
   $('body').append $('<h1 />',{class:"header", text:"This entire page is coffeescript!"})
